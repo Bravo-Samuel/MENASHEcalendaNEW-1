@@ -1186,6 +1186,7 @@ const DEV_PREVIEW =
 function HomeRoute() {
   const { user } = useUser();
   const { status, retry } = useAuthState();
+  const [, setLocation] = useLocation();
   if (DEV_PREVIEW) return <Redirect to="/app" />;
   if (!user && (status === "loading" || status === "unavailable")) {
     return <AuthSystemState status={status} onRetry={retry} />;
@@ -1204,6 +1205,7 @@ function HomeRoute() {
                   onSignIn={() => {
                     window.location.href = `${basePath}/sign-in`;
                   }}
+                  onOpenCalendar={() => setLocation("/app")}
                 />
               </Suspense>
             </div>
@@ -1215,22 +1217,13 @@ function HomeRoute() {
 }
 
 function AppRoute() {
-  const { user } = useUser();
   const { status, retry } = useAuthState();
   if (DEV_PREVIEW) return <AppShell />;
-  if (!user && (status === "loading" || status === "unavailable")) {
+  // Guest mode: /app is usable without an account (matches live Replit deploy).
+  if (status === "loading" || status === "unavailable") {
     return <AuthSystemState status={status} onRetry={retry} />;
   }
-  return (
-    <>
-      <Show when="signed-in">
-        <AppShell />
-      </Show>
-      <Show when="signed-out">
-        <Redirect to="/" />
-      </Show>
-    </>
-  );
+  return <AppShell />;
 }
 
 export default function App() {

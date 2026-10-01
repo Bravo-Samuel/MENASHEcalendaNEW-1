@@ -5,6 +5,7 @@ import { fetchCommunityYahrzeit, type CommunityYahrzeitEntry } from "../lib/user
 
 interface LandingProps {
   onSignIn: () => void;
+  onOpenCalendar: () => void;
 }
 
 /* ─── Jerusalem skyline SVG ─────────────────────────────────────── */
@@ -212,7 +213,7 @@ function candleYahrzeitNum(passingYear: number | null): number | undefined {
   return CURRENT_YEAR - passingYear;
 }
 
-export default function Landing({ onSignIn }: LandingProps) {
+export default function Landing({ onSignIn, onOpenCalendar }: LandingProps) {
   const { t, lang, setLang } = useLanguage();
   const [candleEntries, setCandleEntries] = useState<CommunityYahrzeitEntry[]>([]);
 
@@ -544,7 +545,7 @@ export default function Landing({ onSignIn }: LandingProps) {
 
           {/* CTA */}
           <div className="hero-btn" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
-            <button className="btn-gold" onClick={onSignIn}>{t.landingSignIn}</button>
+            <button className="btn-gold" onClick={onOpenCalendar}>Open Calendar</button>
             <span style={{ fontSize: 13, color: "#475569" }}>{t.landingFree}</span>
           </div>
 
@@ -754,7 +755,7 @@ export default function Landing({ onSignIn }: LandingProps) {
               Join the Bnei Menashe community and access every feature — completely free.
             </p>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
-              <button className="btn-gold" style={{ fontSize: 18, padding: "18px 56px" }} onClick={onSignIn}>
+              <button className="btn-gold" style={{ fontSize: 18, padding: "18px 56px" }} onClick={onOpenCalendar}>
                 Open Calendar
               </button>
               <span style={{ fontSize: 12, color: "#334155" }}>✡ Serving the Bnei Menashe community worldwide</span>
