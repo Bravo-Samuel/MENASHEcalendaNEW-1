@@ -1,1 +1,1 @@
-LOAD_FROM_FILE
+@/workspace/mcp_app_content.txt
