@@ -1,0 +1,12 @@
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+  lazy,
+  Suspense,
+  memo,
+} from "react";
+import PageSkeleton from "./components/PageSkeleton";
+SIZE_TEST_2000_OK
